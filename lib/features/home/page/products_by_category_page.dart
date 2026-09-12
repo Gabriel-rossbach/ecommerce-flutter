@@ -1,9 +1,9 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/home/controllers/products_by_category_controller.dart';
 import 'package:flutter_application_1/features/home/models/products_model.dart';
 import 'package:flutter_application_1/features/home/page/widget/products_card.dart';
 import 'package:flutter_application_1/shared/app_text_style.dart';
+import 'package:flutter_application_1/shared/widget/app_card_button.dart';
 import 'package:flutter_application_1/shared/widget/app_text_field.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -49,46 +49,10 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(widget.categoryName, style: AppTextStyle.title),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.shopping_cart_outlined),
-          ),
-        ],
+        // actions: [AppCardButton()],
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: AppTextField(
-              hintText: 'Buscar produtos',
-
-              onChanged: context.read<ProductsByCategoryController>().search,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
-                labelText: 'Filtrar por marca',
-                border: OutlineInputBorder(),
-              ),
-              onChanged: (value) {
-                context.read<ProductsByCategoryController>().selectBrand(
-                  value!,
-                );
-              },
-              items: [
-                DropdownMenuItem(value: 'Todos', child: Text('Todos')),
-                ...context.read<ProductsByCategoryController>().brands.map((
-                  brand,
-                ) {
-                  return DropdownMenuItem(value: brand, child: Text(brand));
-                }),
-              ],
-            ),
-          ),
-
           Expanded(
             child: Consumer<ProductsByCategoryController>(
               builder: (context, controller, child) {
@@ -97,6 +61,36 @@ class _ProductsByCategoryPageState extends State<ProductsByCategoryPage> {
                     child: Text('Problema ao resgatar produtos'),
                   );
                 }
+                AppCardButton();
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: AppTextField(
+                    hintText: 'Buscar produtos',
+
+                    onChanged: controller.search,
+                  ),
+                );
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButtonFormField<String>(
+                    decoration: const InputDecoration(
+                      labelText: 'Filtrar por marca',
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      controller.selectBrand(value!);
+                    },
+                    items: [
+                      DropdownMenuItem(value: 'Todos', child: Text('Todos')),
+                      ...controller.brands.map((brand) {
+                        return DropdownMenuItem(
+                          value: brand,
+                          child: Text(brand),
+                        );
+                      }),
+                    ],
+                  ),
+                );
 
                 final isLoading =
                     controller.state == ProductsByCategoryViewState.loading;

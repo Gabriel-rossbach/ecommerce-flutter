@@ -4,6 +4,7 @@ import 'package:flutter_application_1/features/home/page/widget/categories__stat
 import 'package:flutter_application_1/features/home/page/widget/products_section.dart';
 import 'package:flutter_application_1/features/login/controllers/login_controller.dart';
 import 'package:flutter_application_1/shared/app_text_style.dart';
+import 'package:flutter_application_1/shared/widget/app_card_button.dart';
 
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 100,
+        leadingWidth: 150,
         leading: Consumer<LoginController>(
           builder: (context, loginController, child) {
             return Text(
@@ -44,6 +45,21 @@ class _HomePageState extends State<HomePage> {
         builder: (context, homeCrontroller, child) => Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.end,
+            //   children: [
+            //     Spacer(),
+            //     Badge(
+            //       label: Text('5'),
+            //       child: IconButton(
+            //         onPressed: () => print('sss'),
+            //         icon: Icon(Icons.shopping_cart_outlined),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            AppCardButton(),
+
             SizedBox(
               height: 157,
               child: PageView.builder(

@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/home/controllers/home_controller.dart';
 import 'package:flutter_application_1/features/home/models/products_model.dart';
+import 'package:flutter_application_1/shared/app_colors.dart';
 import 'package:flutter_application_1/shared/app_text_style.dart';
+import 'package:flutter_application_1/shared/widget/app_button_products.dart';
 import 'package:flutter_application_1/shared/widget/app_elevated_button.dart';
 
 import 'package:skeletonizer/skeletonizer.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.product});
+  ProductCard({super.key, required this.product});
 
   final Product product;
-  homeController() {
-    return HomeController();
-  }
+
+  final HomeController controller = HomeController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +52,7 @@ class ProductCard extends StatelessWidget {
                     '\$${product.price.toStringAsFixed(2).replaceAll('.', ',')}',
                     style: AppTextStyle.smallGreen,
                   ),
-                  AppElevatedButton(
-                    buttonText: 'Adicionar ao carrinho',
-                    type: ButtonType.filled,
-                    onPressed: () {
-                      Navigator.pop(context, product.name);
-                    },
-                  ),
+                  AppButtonProducts(onPressed: controller.increment),
                 ],
               ),
             );

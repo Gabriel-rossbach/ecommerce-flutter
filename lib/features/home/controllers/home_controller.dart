@@ -11,6 +11,7 @@ class HomeController extends ChangeNotifier {
   List<Category> categories = [];
   List<Product> products = [];
   List<String> carrinho = [];
+  int intemcarrinho = 1;
   int pageViewIndex = 0;
   CategoriesViewState categoriesState = CategoriesViewState.loading;
   productsViewState productsState = productsViewState.loading;
@@ -61,6 +62,18 @@ class HomeController extends ChangeNotifier {
       changeCategoriesState(CategoriesViewState.success);
     } catch (e) {
       changeCategoriesState(CategoriesViewState.erros);
+    }
+  }
+
+  void increment() {
+    intemcarrinho++;
+    notifyListeners();
+  }
+
+  void decrement() {
+    if (intemcarrinho > 0) {
+      intemcarrinho--;
+      notifyListeners();
     }
   }
 

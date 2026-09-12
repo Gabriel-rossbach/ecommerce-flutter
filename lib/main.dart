@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/features/home/controllers/home_controller.dart';
 import 'package:flutter_application_1/features/home/controllers/products_by_category_controller.dart';
-import 'package:flutter_application_1/features/home/models/category_model.dart';
 import 'package:flutter_application_1/features/login/controllers/login_controller.dart';
 import 'package:flutter_application_1/features/login/pages/login_page.dart';
 import 'package:flutter_application_1/features/signup/controllers/signup_controller.dart';
