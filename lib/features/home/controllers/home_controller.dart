@@ -5,16 +5,15 @@ import 'package:flutter_application_1/shared/mocks.dart';
 
 enum CategoriesViewState { loading, success, erros }
 
-enum productsViewState { loading, success, erros }
+enum ProductsViewState { loading, success, erros }
 
 class HomeController extends ChangeNotifier {
   List<Category> categories = [];
   List<Product> products = [];
-  List<String> carrinho = [];
-  int intemcarrinho = 1;
+
   int pageViewIndex = 0;
   CategoriesViewState categoriesState = CategoriesViewState.loading;
-  productsViewState productsState = productsViewState.loading;
+  ProductsViewState productsState = ProductsViewState.loading;
   List<String> images = [
     'assets/images/Banner.png',
     'assets/images/Banner2.png',
@@ -43,7 +42,7 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeproductsState(productsViewState state) {
+  void changeproductsState(ProductsViewState state) {
     productsState = state;
     notifyListeners();
   }
@@ -65,28 +64,16 @@ class HomeController extends ChangeNotifier {
     }
   }
 
-  void increment() {
-    intemcarrinho++;
-    notifyListeners();
-  }
-
-  void decrement() {
-    if (intemcarrinho > 0) {
-      intemcarrinho--;
-      notifyListeners();
-    }
-  }
-
   Future<void> getproducts() async {
-    changeproductsState(productsViewState.loading);
+    changeproductsState(ProductsViewState.loading);
     await Future.delayed(Duration(seconds: 3));
     try {
       products = productsJson.map((item) {
         return Product.fromJson(item);
       }).toList();
-      changeproductsState(productsViewState.success);
+      changeproductsState(ProductsViewState.success);
     } catch (e) {
-      changeproductsState(productsViewState.erros);
+      changeproductsState(ProductsViewState.erros);
     }
   }
 }

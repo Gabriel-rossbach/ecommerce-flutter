@@ -4,9 +4,8 @@ import 'package:flutter_application_1/shared/app_colors.dart';
 import 'package:flutter_application_1/shared/app_text_style.dart';
 
 class AppButtonProducts extends StatelessWidget {
-  AppButtonProducts({super.key, this.onPressed});
-  final HomeController intemcarrinho = HomeController();
-  final int value = 1;
+  const AppButtonProducts({super.key, this.onPressed});
+
   final VoidCallback? onPressed;
 
   @override
@@ -19,7 +18,7 @@ class AppButtonProducts extends StatelessWidget {
         backgroundColor: AppColors.black,
         foregroundColor: AppColors.white,
 
-        textStyle: AppTextStyle.buttonLebel,
+        textStyle: AppTextStyle.buttonLabel,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     );

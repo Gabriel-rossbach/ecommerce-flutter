@@ -95,9 +95,9 @@ class _HomePageState extends State<HomePage> {
 
             ProductsSection(
               isLoading:
-                  homeCrontroller.productsState == productsViewState.loading,
+                  homeCrontroller.productsState == ProductsViewState.loading,
               hasError:
-                  homeCrontroller.productsState == productsViewState.erros,
+                  homeCrontroller.productsState == ProductsViewState.erros,
               products: homeCrontroller.products,
             ),
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/cart/controllers/cart_controller.dart';
 import 'package:flutter_application_1/features/home/controllers/home_controller.dart';
 import 'package:flutter_application_1/features/home/controllers/products_by_category_controller.dart';
 import 'package:flutter_application_1/features/login/controllers/login_controller.dart';
@@ -37,6 +38,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) {
             return SignupController();
+          },
+        ),
+        ChangeNotifierProvider(
+          create: (context) {
+            return CartController();
           },
         ),
       ],
