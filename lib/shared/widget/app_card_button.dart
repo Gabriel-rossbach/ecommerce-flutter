@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/features/cart/controllers/cart_controller.dart';
-import 'package:flutter_application_1/features/home/controllers/home_controller.dart';
+import 'package:flutter_application_1/features/cart/page/cart_page.dart';
 import 'package:provider/provider.dart';
 
 class AppCardButton extends StatelessWidget {
@@ -19,7 +19,7 @@ class AppCardButton extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 IconButton(
-                  onPressed: () => print('aaz'),
+                  onPressed: () => Navigator.pushNamed(context, CartPage.route),
                   icon: Icon(Icons.shopping_cart_outlined),
                 ),
                 Visibility(

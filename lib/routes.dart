@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/cart/page/cart_page.dart';
 import 'package:flutter_application_1/features/home/page/products_by_category_page.dart';
 import 'package:flutter_application_1/features/home/page/home_page.dart';
 import 'package:flutter_application_1/features/login/pages/login_page.dart';
@@ -16,5 +17,6 @@ class AppRoutes {
           ModalRoute.of(context)!.settings.arguments as String;
       return ProductsByCategoryPage(categoryName: CategoryName);
     },
+    CartPage.route: (context) => CartPage(),
   };
 }

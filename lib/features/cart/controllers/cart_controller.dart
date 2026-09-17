@@ -12,7 +12,7 @@ class ProductCart extends Product {
     required this.quantity,
   });
 
-  int quantity;
+  int quantity = 0;
 
   factory ProductCart.fromProduct(Product product) {
     return ProductCart(
@@ -28,6 +28,7 @@ class ProductCart extends Product {
 }
 
 class CartController extends ChangeNotifier {
+  int pageViewIndex = 0;
   List<ProductCart> carrinho = [];
   int get itemcarrinho {
     return carrinho.fold<int>(0, (sum, item) => sum + item.quantity);
@@ -36,6 +37,10 @@ class CartController extends ChangeNotifier {
   //TODO caclular total de preços
   //quantity * price
   // double get subTotal {}
+  void changePageViewIndex(int index) {
+    pageViewIndex = index;
+    notifyListeners();
+  }
 
   bool existeProdutoPeloNome(String nome) {
     final nomeLower = nome.toLowerCase();
@@ -48,8 +53,10 @@ class CartController extends ChangeNotifier {
         .firstOrNull;
   }
 
-  ProductCart getProductCartvaid(Product product) {
-    return 
+  ProductCart? getProductCartVoid(ProductCart product) {
+    return carrinho
+        .where((element) => element.quantity == 0 && product.quantity == 0)
+        .firstOrNull;
   }
 
   void increment(Product product) {
@@ -67,7 +74,14 @@ class CartController extends ChangeNotifier {
       productCart.quantity--;
       carrinho[carrinho.indexOf(productCart)] = productCart;
     }
-    if (productCart.quantity < 1)
+    notifyListeners();
+  }
+
+  void removeProduct(Product product) {
+    ProductCart? productCart = getProductCartByProduct(product);
+    if (productCart != null) {
+      carrinho.remove(productCart);
+    }
     notifyListeners();
   }
 

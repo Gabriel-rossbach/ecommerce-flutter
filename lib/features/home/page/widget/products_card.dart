@@ -107,34 +107,81 @@ class ProductBottomSheet extends StatelessWidget {
               Visibility(
                 replacement: Container(
                   height: 80,
-                  width: 158,
+                  width: 300,
                   child: Row(
                     children: [
                       Spacer(),
-                      ElevatedButton(
-                        onPressed: () {
-                          controller.increment(product);
-                        },
-                        child: Text("+", style: TextStyle(fontSize: 24)),
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        '${controller.itemcarrinho}',
-                        style: TextStyle(fontSize: 24),
-                      ),
-                      SizedBox(width: 8),
                       ElevatedButton(
                         onPressed: () {
                           ProductCart? productCart = controller
                               .getProductCartByProduct(product);
                           if (productCart != null) {
                             if (productCart.quantity == 1) {
-                              //TODO chamar o dialog de exclusão caso quantity == 1
+                              showDialog<void>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text("gato"),
+                                    content: const Text(
+                                      'A dialog is a type of modal window that\n'
+                                      'appears in front of app content to\n'
+                                      'provide critical information, or prompt\n'
+                                      'for a decision to be made.',
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          textStyle: Theme.of(
+                                            context,
+                                          ).textTheme.labelLarge,
+                                        ),
+                                        child: const Text('Disable'),
+                                        onPressed: () {
+                                          controller.removeProduct(product);
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          textStyle: Theme.of(
+                                            context,
+                                          ).textTheme.labelLarge,
+                                        ),
+                                        child: const Text('Enable'),
+                                        onPressed: () {
+                                          ;
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+
+                              // controller.removeProduct(product);
                             }
                             controller.decrement(product);
                           }
                         },
                         child: Text("-", style: TextStyle(fontSize: 24)),
+                      ),
+                      SizedBox(width: 8),
+                      // Text('teste'),
+                      Text(
+                        controller.existeProdutoPeloNome(product.name)
+                            ? controller.carrinho
+                                  .where((item) => item.name == product.name)
+                                  .first
+                                  .quantity
+                                  .toString()
+                            : '',
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      SizedBox(width: 8),
+                      ElevatedButton(
+                        onPressed: () {
+                          controller.increment(product);
+                        },
+                        child: Text("+", style: TextStyle(fontSize: 24)),
                       ),
                       Spacer(),
                     ],
