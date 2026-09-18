@@ -34,6 +34,18 @@ class CartController extends ChangeNotifier {
     return carrinho.fold<int>(0, (sum, item) => sum + item.quantity);
   }
 
+  double prece = 0;
+  double precepro(Product product) {
+    ProductCart? productCart = getProductCartByProduct(product);
+    if (productCart != null) {
+      prece = productCart.quantity * productCart.price;
+      notifyListeners();
+      return prece;
+    }
+    notifyListeners();
+    return 0;
+  }
+
   //TODO caclular total de preços
   //quantity * price
   // double get subTotal {}

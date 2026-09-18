@@ -112,12 +112,12 @@ class ProductBottomSheet extends StatelessWidget {
                     children: [
                       Spacer(),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           ProductCart? productCart = controller
                               .getProductCartByProduct(product);
                           if (productCart != null) {
                             if (productCart.quantity == 1) {
-                              showDialog<void>(
+                              bool? deleteProduct = await showDialog<bool>(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
@@ -135,10 +135,9 @@ class ProductBottomSheet extends StatelessWidget {
                                             context,
                                           ).textTheme.labelLarge,
                                         ),
-                                        child: const Text('Disable'),
+                                        child: const Text('Cancelar'),
                                         onPressed: () {
-                                          controller.removeProduct(product);
-                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop(false);
                                         },
                                       ),
                                       TextButton(
@@ -147,19 +146,23 @@ class ProductBottomSheet extends StatelessWidget {
                                             context,
                                           ).textTheme.labelLarge,
                                         ),
-                                        child: const Text('Enable'),
+                                        child: const Text('Confirmar'),
                                         onPressed: () {
-                                          ;
+                                          Navigator.of(context).pop(true);
                                         },
                                       ),
                                     ],
                                   );
                                 },
                               );
+                              if (deleteProduct != null && deleteProduct) {
+                                controller.removeProduct(product);
+                              }
 
                               // controller.removeProduct(product);
+                            } else {
+                              controller.decrement(product);
                             }
-                            controller.decrement(product);
                           }
                         },
                         child: Text("-", style: TextStyle(fontSize: 24)),
